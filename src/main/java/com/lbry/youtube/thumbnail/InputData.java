@@ -2,6 +2,8 @@ package com.lbry.youtube.thumbnail;
 
 import org.json.JSONObject;
 
+import java.util.LinkedHashMap;
+
 /**
  * Created by niko on 3/2/17.
  */
@@ -10,7 +12,7 @@ public class InputData {
     private String channelID = null;
     private JSONObject jsonBody;
 
-    public void setBody(String body) {
+    public void setBody(LinkedHashMap<String, Object> body) {
         this.jsonBody = new JSONObject(body);
         if (jsonBody.has("videoid"))
             setVideoID(jsonBody.getString("videoid"));

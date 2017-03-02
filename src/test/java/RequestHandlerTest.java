@@ -3,6 +3,7 @@ import com.lbry.youtube.thumbnail.RequestHandler;
 import org.json.JSONObject;
 import org.junit.Test;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -14,7 +15,7 @@ public class RequestHandlerTest {
         InputData inputData = new InputData();
         JSONObject inputDataObject = new JSONObject();
         inputDataObject.put("videoid", "xyz");
-        inputData.setBody(inputDataObject.toString());
+        //inputData.setBody();
         RequestHandler requestHandler = new RequestHandler();
         Map response = requestHandler.handleRequest(inputData, null);
         System.out.println(response);
