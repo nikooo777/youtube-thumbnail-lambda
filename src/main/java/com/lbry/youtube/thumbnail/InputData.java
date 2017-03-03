@@ -10,10 +10,9 @@ import java.util.LinkedHashMap;
 public class InputData {
     private String videoID = null;
     private String channelID = null;
-    private JSONObject jsonBody;
 
     public void setBody(LinkedHashMap<String, Object> body) {
-        this.jsonBody = new JSONObject(body);
+        JSONObject jsonBody = new JSONObject(body);
         if (jsonBody.has("videoid"))
             setVideoID(jsonBody.getString("videoid"));
         else if (jsonBody.has("channelid")) {
