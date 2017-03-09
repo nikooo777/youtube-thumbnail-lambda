@@ -16,13 +16,7 @@ public class InputDataTest {
     @Test
     public void testGettersAndSetters() {
         InputData inputData = new InputData();
-        inputData.setVideoID("videoidtest");
-        assertEquals("videoidtest",inputData.getVideoID());
 
-        inputData.setChannelID("channelidtest");
-        assertEquals("channelidtest",inputData.getChannelID());
-
-        inputData = new InputData();
         LinkedHashMap<String, Object> body = new LinkedHashMap<>();
         body.put("videoid", "xyz");
         inputData.setBody(body);
@@ -37,5 +31,17 @@ public class InputDataTest {
         assertTrue(inputData.hasChannelID());
         assertFalse(inputData.hasVideoID());
         assertEquals("xyz",inputData.getChannelID());
+    }
+
+    @Test
+    public void testInitialization() {
+        InputData inputData = new InputData();
+
+        LinkedHashMap<String, Object> body = new LinkedHashMap<>();
+        body.put("somerandomestuff", 123);
+        inputData.setBody(body);
+        assertFalse(inputData.isCorrectlyInitialized());
+        assertFalse(inputData.hasVideoID());
+        assertFalse(inputData.hasChannelID());
     }
 }

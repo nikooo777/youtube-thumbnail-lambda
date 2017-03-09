@@ -5,12 +5,8 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 /**
  * Created by niko on 3/2/17.
@@ -18,12 +14,11 @@ import java.nio.file.Paths;
 public class ThumbnailScraper {
     private String videoID;
 
-    ThumbnailScraper(String videoID) {
-
+    public ThumbnailScraper(String videoID) {
         this.videoID = videoID;
     }
 
-    byte[] getThumbnail() throws IOException {
+    public byte[] getThumbnail() throws IOException {
         String thumbUrl = "https://i.ytimg.com/vi/" + videoID + "/hqdefault.jpg";
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
@@ -31,8 +26,14 @@ public class ThumbnailScraper {
                 .get()
                 .build();
         Response response = client.newCall(request).execute();
-        InputStream inputStream = response.body().byteStream();
-        System.out.println("File downloaded");
-        return IOUtils.toByteArray(inputStream);
+        if (response.code() == 200) {
+            InputStream inputStream = response.body().byteStream();
+            byte[] thumbnail = IOUtils.toByteArray(inputStream);
+            inputStream.close();
+            return thumbnail;
+        } else {
+            response.body().close();
+            throw new ThumbnailFetchException("Failed retrieving thumbnail with status code: " + response.code());
+        }
     }
 }

@@ -17,30 +17,62 @@ public class InputData {
             setVideoID(jsonBody.getString("videoid"));
         else if (jsonBody.has("channelid")) {
             setChannelID(jsonBody.getString("channelid"));
-        } else
-            throw new InsufficientDataException("Both videoID and channelID are missing. Please specify at least one.");
+        }
     }
 
+    /**
+     * true if at least a channel id or a video id is specified
+     * false if no key is specified
+     *
+     * @return boolean
+     */
+    public boolean isCorrectlyInitialized() {
+        return hasChannelID() || hasVideoID();
+    }
+
+    /**
+     * true if a video ID was provided
+     * false otherwise
+     *
+     * @return boolean
+     */
     public boolean hasVideoID() {
         return videoID != null;
     }
 
+    /**
+     * true if a channel ID was provided
+     * false otherwise
+     *
+     * @return boolean
+     */
     public boolean hasChannelID() {
         return channelID != null;
     }
 
-    public void setVideoID(String videoID) {
+    private void setVideoID(String videoID) {
         this.videoID = videoID;
     }
 
+    /**
+     * Retrieves the video ID
+     *
+     * @return String
+     */
     public String getVideoID() {
         return videoID;
     }
 
-    public void setChannelID(String channelID) {
+
+    private void setChannelID(String channelID) {
         this.channelID = channelID;
     }
 
+    /**
+     * Retrieves the channel ID
+     *
+     * @return String
+     */
     public String getChannelID() {
         return channelID;
     }
